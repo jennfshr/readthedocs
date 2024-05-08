@@ -1,14 +1,7 @@
 LDMS Quick Start
 ###########################
 
-Installation
-*****************
-
-Ubuntu 16.04 
-------------
-
 Prerequisites
-
 ***********************
 * Linux OS (LDMS runs on any *nix OS; AlmaLinux arm64v8 was used in this demonstration)
 * openssl-dev
@@ -35,7 +28,6 @@ Prerequisites
 * flex
 
 Getting the Source
-
 ***********************
 * This example shows cloning into ~/Source/ovis-4 and putting the build in ~/ovis/4.4.2
 
@@ -47,7 +39,7 @@ Getting the Source
  git clone -b OVIS-4.4.2 https://github.com/ovis-hpc/ovis.git OVIS-4.4.2
  
 Building the Source
------------------------
+***********************
 * Go to your source directory
 
 
@@ -60,7 +52,6 @@ cd $HOME/Source/ovis
  ./autogen.sh
 
 * Configure and Build (Builds default linux samplers. Build installation directory is prefix):
-
 .. code-block:: RST
  
  mkdir build
@@ -69,69 +60,9 @@ cd $HOME/Source/ovis
  make
  make install
 
-RHEL 9  
-------------
-
-Prerequisites
-=============
-* RHEL 9
-* openssl-devel
-* pkg-config
-* automake
-* libtool
-* python3 (or higher)
-* python3-devel.x86_64 (or higher)
-* bison
-* flex
-
-Prerequisite Installation
----------------------------
-The following steps were ran on a basic RHEL 9 instance via AWS. 
-
-.. code-block:: RST
-
- sudo yum update -y
- sudo yum install automake -y
- sudo yum install openssl-devel -y 
- sudo yum install pkg-config -y
- sudo yum install hdf5-tools libhdf5-openmpi-dev openmpi-bin -y
- sudo yum install libtool -y
- sudo yum install python3 -y
- sudo yum install python3-devel.x86_64 -y
- 
- sudo yum install make -y 
- sudo yum install bison -y 
- sudo yum install flex -y
- 
-
-LDMS Build and Install
---------------------------
-* This example shows cloning into ~/ovis and putting the build in ~/ovis/build
-
-.. code-block:: RST
- 
- git clone https://github.com/ovis-hpc/ovis.git
- cd ovis && mkdir build/
-
-* Run autogen.sh
-
-.. code-block:: RST
- 
- ./autogen.sh
-
-* Configure and Build (Builds default linux samplers. Build installation directory is prefix):
-
-.. code-block:: RST
- 
- cd build
- ../configure --prefix=$HOME/ovis/build/
- make
- make install
-
 Basic Configuration and Running
-*******************************
+***********************
 * Set up environment:
-
 .. code-block:: RST
 
  OVIS=$HOME/Build/OVIS-4.4.2
@@ -209,13 +140,11 @@ The following setup will set the samplers to collect at 1 second, (i.e., 1000000
   start name=vmstat interval=${SAMPLE_INTERVAL} offset=${SAMPLE_OFFSET}
 
 * Run a daemon using munge authentication: 
-
 .. code-block:: RST
  
   ldmsd -x sock:10444 -c sampler.conf -l /tmp/demo_ldmsd.log -v DEBUG -a munge  -r $(pwd)/ldmsd.pid
  
 Or in non-cluster environments where munge is unavailable:
-
 .. code-block:: RST
  
   ldmsd -x sock:10444 -c sampler.conf -l /tmp/demo_ldmsd.log -v DEBUG -r $(pwd)/ldmsd.pid
@@ -224,12 +153,11 @@ Or in non-cluster environments where munge is unavailable:
   For the rest of these instructions, omit the "-a munge" if you do not have munge running. This will also write out DEBUG-level information to the specified (-l) log.
 
 * Run ldms_ls on that node to see set, meta-data, and contents:
-
 .. code-block:: RST
 
  ldms_ls -h localhost -x sock -p 10444 -a munge
  ldms_ls -h localhost -x sock -p 10444 -v -a munge
- ldms_ls -h localhost -x sock -p 10444 -l -a munge
+ ldms_ls -h localhost -x sock -p 10444 -l -a mung
  
 .. note::
   Note the use of munge. Users will not be able to query a daemon launched with munge if not querying with  munge. Users will only be able to see sets as allowed by the permissions in response to `ldms_ls`.
@@ -319,14 +247,11 @@ Aggregator Using Data Pull
  updtr_start name=policy_h2
  
 * On host3, set up the environment as above and run a daemon:
-
 .. code-block:: RST
 
  ldmsd -x sock:10445 -c agg11.conf -l /tmp/demo_ldmsd.log -v ERROR -a munge
  
-
 * Run `ldms_ls` on the aggregator node to see set listing:
-
 .. code-block:: RST
 
  ldms_ls -h localhost -x sock -p 10445 -a munge
@@ -352,7 +277,6 @@ Output:
 
  host1/meminfo
  host1/vmstat
-
 
 .. note::
   `ldms_ls -l` shows the detailed output, including timestamps. This can be used to verify that the aggregator is aggregating the two hosts' sets at different intervals.
@@ -586,9 +510,6 @@ The following is an example of the CSV output:
 .. code-block:: RST
  
   > head csv/*/*
-
-.. code-block:: RST
-
  #Time,Time_usec,ProducerName,component_id,job_id,app_id,reads_comp#sda,reads_comp.rate#sda,reads_merg#sda,reads_merg.rate#sda,sect_read#sda,sect_read.rate#sda,time_read#sda,time_read.rate#sda,writes_comp#sda,writes_comp.rate#sda,writes_merg#sda,writes_merg.rate#sda,sect_written#sda,sect_written.rate#sda,time_write#sda,time_write.rate#sda,ios_in_progress#sda,ios_in_progress.rate#sda,time_ios#sda,time_ios.rate#sda,weighted_time#sda,weighted_time.rate#sda,disk.byte_read#sda,disk.byte_read.rate#sda,disk.byte_written#sda,disk.byte_written.rate#sda
  1558387831.001731,1731,s0,0,0,0,197797,0,9132,0,5382606,0,69312,0,522561,0,446083,0,418086168,0,966856,0,0,0,213096,0,1036080,0,1327776668,0,1380408297,0
  1558387832.001943,1943,s1,0,0,0,108887,0,32214,0,1143802,0,439216,0,1,0,0,0,8,0,44,0,0,0,54012,0,439240,0,1309384656,0,1166016512,0
