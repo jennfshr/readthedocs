@@ -1,9 +1,16 @@
 LDMS Quick Start
 ###########################
 
+Installation
+*****************
+
+AlmaLinux8 
+------------
+
 Prerequisites
+
 ***********************
-* Linux OS (LDMS runs on any *nix OS; AlmaLinux arm64v8 was used in this demonstration)
+* AlmaLinux8 (AlmaLinux is binary compatible with RHEL®
 * openssl-dev
 * gnu compiler
 * swig
@@ -14,8 +21,6 @@ Prerequisites
 * libevent
 * libevent-dev
 * autogen-libopts
-* python-yams <<<<< I don't know whether this is a typo or a packagE?
-* doxygen <<<<< this doesn't appear to be a valid package for AlmaLinux 8
 * gettext
 * python3.8
 * python38-Cython
@@ -27,31 +32,93 @@ Prerequisites
 * yacc (on AlmaLinux8, byacc)
 * flex
 
+Prerequisite Installation
+---------------------------
+The following steps were ran on AlmaLinux8 arm64v8
+
+.. code-block:: RST
+
+   sudo dnf install -y openssl
+   sudo dnf install -y openssl-devel
+   sudo dnf install -y swig
+   sudo dnf install -y libtool
+   sudo dnf install -y readline
+   sudo dnf install -y readline-devel
+   sudo dnf install -y libevent
+   sudo dnf install -y libevent-devel
+   sudo dnf install -y autogen-libopts
+   sudo dnf install -y gettext.a
+   sudo dnf install -y glib2
+   sudo dnf install -y glib2-devel
+   sudo dnf install -y git
+   sudo dnf install -y bison
+   sudo dnf install -y make
+   sudo dnf install -y byacc
+   sudo dnf install -y flex
+   sudo dnf install -y python38
+   sudo dnf install -y python38-devel
+   sudo dnf install -y python38-Cython
+   sudo dnf install -y python38-libs
+ 
+
+RHEL 9  
+------------
+
+Prerequisites
+=============
+* RHEL 9
+* openssl-devel
+* pkg-config
+* automake
+* libtool
+* python3 (or higher)
+* python3-devel (or higher)
+* bison
+* flex
+
+Prerequisite Installation
+---------------------------
+The following steps were ran on a basic RHEL 9 instance via AWS. 
+
+.. code-block:: RST
+
+ sudo yum update -y
+ sudo yum install automake -y
+ sudo yum install openssl-devel -y 
+ sudo yum install pkg-config -y
+ sudo yum install hdf5-tools libhdf5-openmpi-dev openmpi-bin -y
+ sudo yum install libtool -y
+ sudo yum install python3 -y
+ sudo yum install python3-devel.x86_64 -y
+ 
+ sudo yum install make -y 
+ sudo yum install bison -y 
+ sudo yum install flex -y
+ 
+
 Getting the Source
+
 ***********************
-* This example shows cloning into ~/Source/ovis-4 and putting the build in ~/ovis/4.4.2
+* This example shows cloning into ~/Source/ovis-4 and installing into ~/ovis/4.4.2
 
 .. code-block:: RST
  
  mkdir $HOME/Source
  mkdir $HOME/ovis
  cd $HOME/Source
- git clone -b OVIS-4.4.2 https://github.com/ovis-hpc/ovis.git OVIS-4.4.2
+ git clone -b OVIS-4.4.2 https://github.com/ovis-hpc/ovis.git ovis-4
  
 Building the Source
-***********************
-* Go to your source directory
-
-
-cd $HOME/Source/ovis
+-----------------------
 
 * Run autogen.sh
-
 .. code-block:: RST
- 
+
+ cd $HOME/Source/ovis 
  ./autogen.sh
 
 * Configure and Build (Builds default linux samplers. Build installation directory is prefix):
+
 .. code-block:: RST
  
  mkdir build
@@ -59,13 +126,14 @@ cd $HOME/Source/ovis
  ../configure --prefix=$HOME/ovis/4.4.2
  make
  make install
-
+ 
 Basic Configuration and Running
-***********************
+*******************************
 * Set up environment:
+
 .. code-block:: RST
 
- OVIS=$HOME/Build/OVIS-4.4.2
+ OVIS=$HOME/ovis/4.4.2
  export LD_LIBRARY_PATH=$OVIS/lib:$LD_LIBRARY_PATH
  export LDMSD_PLUGIN_LIBPATH=$OVIS/lib/ovis-ldms
  export ZAP_LIBPATH=$OVIS/lib/ovis-ldms
@@ -104,6 +172,7 @@ Adjust as needed for your system.
 
 Sampling offset is typically set to 0 for sampler plugins.
 
+
 .. code-block:: RST
    :linenos:
   
@@ -140,11 +209,13 @@ The following setup will set the samplers to collect at 1 second, (i.e., 1000000
   start name=vmstat interval=${SAMPLE_INTERVAL} offset=${SAMPLE_OFFSET}
 
 * Run a daemon using munge authentication: 
+
 .. code-block:: RST
  
   ldmsd -x sock:10444 -c sampler.conf -l /tmp/demo_ldmsd.log -v DEBUG -a munge  -r $(pwd)/ldmsd.pid
  
 Or in non-cluster environments where munge is unavailable:
+
 .. code-block:: RST
  
   ldmsd -x sock:10444 -c sampler.conf -l /tmp/demo_ldmsd.log -v DEBUG -r $(pwd)/ldmsd.pid
@@ -153,11 +224,12 @@ Or in non-cluster environments where munge is unavailable:
   For the rest of these instructions, omit the "-a munge" if you do not have munge running. This will also write out DEBUG-level information to the specified (-l) log.
 
 * Run ldms_ls on that node to see set, meta-data, and contents:
+
 .. code-block:: RST
 
  ldms_ls -h localhost -x sock -p 10444 -a munge
  ldms_ls -h localhost -x sock -p 10444 -v -a munge
- ldms_ls -h localhost -x sock -p 10444 -l -a mung
+ ldms_ls -h localhost -x sock -p 10444 -l -a munge
  
 .. note::
   Note the use of munge. Users will not be able to query a daemon launched with munge if not querying with  munge. Users will only be able to see sets as allowed by the permissions in response to `ldms_ls`.
@@ -247,11 +319,14 @@ Aggregator Using Data Pull
  updtr_start name=policy_h2
  
 * On host3, set up the environment as above and run a daemon:
+
 .. code-block:: RST
 
  ldmsd -x sock:10445 -c agg11.conf -l /tmp/demo_ldmsd.log -v ERROR -a munge
  
+
 * Run `ldms_ls` on the aggregator node to see set listing:
+
 .. code-block:: RST
 
  ldms_ls -h localhost -x sock -p 10445 -a munge
@@ -277,6 +352,7 @@ Output:
 
  host1/meminfo
  host1/vmstat
+
 
 .. note::
   `ldms_ls -l` shows the detailed output, including timestamps. This can be used to verify that the aggregator is aggregating the two hosts' sets at different intervals.
@@ -380,7 +456,7 @@ Output:
 
 Set Groups
 ***********************
-A set group is an LDMS set with special information to represent a group of sets inside ldmsd. A set group would appear as a regular LDMS set to other LDMS applications, but ldmsd and ldms_ls will treat it as a collection of LDMS sets. If ldmsd updtr updates a set group, it also subsequently updates all the member sets. Performing ldms_ls -l on a set group will also subsequently perform a long-query all the sets in the group.
+A set group is an LDMS set with special information to represent a group of sets inside ldmsd. A set group would appear as a regular LDMS set to other LDMS applications, but ldmsd and `ldms_ls` will treat it as a collection of LDMS sets. If ldmsd updtr updates a set group, it also subsequently updates all the member sets. Performing ldms_ls -l on a set group will also subsequently perform a long-query all the sets in the group.
 
 To illustrate how a set group works, we will configure 2 sampler daemons with set groups and 1 aggregator daemon that updates and stores the groups in the following subsections. 
 
@@ -420,9 +496,11 @@ The following is the same for s1 sampler daemon, but with different devices (sdb
  
 The s0 LDMS daemon is listening on port 10000 and the s1 LDMS daemon is listening on port 10001. 
 
-Perform ldms_ls on a group
+Perform `ldms_ls` on a group
 ***********************
-Performing ldms_ls -v or ldms_ls -l on a LDMS daemon hosting a group will perform the query on the set representing the group itself as well as iteratively querying the group's members. Example: 
+Performing `ldms_ls -v` or `ldms_ls -l` on a LDMS daemon hosting a group will perform the query on the set representing the group itself as well as iteratively querying the group's members. 
+
+Example: 
 
 .. code-block:: RST
 
@@ -510,6 +588,9 @@ The following is an example of the CSV output:
 .. code-block:: RST
  
   > head csv/*/*
+
+.. code-block:: RST
+
  #Time,Time_usec,ProducerName,component_id,job_id,app_id,reads_comp#sda,reads_comp.rate#sda,reads_merg#sda,reads_merg.rate#sda,sect_read#sda,sect_read.rate#sda,time_read#sda,time_read.rate#sda,writes_comp#sda,writes_comp.rate#sda,writes_merg#sda,writes_merg.rate#sda,sect_written#sda,sect_written.rate#sda,time_write#sda,time_write.rate#sda,ios_in_progress#sda,ios_in_progress.rate#sda,time_ios#sda,time_ios.rate#sda,weighted_time#sda,weighted_time.rate#sda,disk.byte_read#sda,disk.byte_read.rate#sda,disk.byte_written#sda,disk.byte_written.rate#sda
  1558387831.001731,1731,s0,0,0,0,197797,0,9132,0,5382606,0,69312,0,522561,0,446083,0,418086168,0,966856,0,0,0,213096,0,1036080,0,1327776668,0,1380408297,0
  1558387832.001943,1943,s1,0,0,0,108887,0,32214,0,1143802,0,439216,0,1,0,0,0,8,0,44,0,0,0,54012,0,439240,0,1309384656,0,1166016512,0
