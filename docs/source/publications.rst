@@ -29,44 +29,17 @@ BibTex:
 Publications and Selected Presentations
 -----------------------------------------
 
-Note: Publications prior to Sept 2011 refer to a different and now deprecated architecture for data collection and transport (i.e., they do NOT use LDMS). 
+Note: Publications prior to Sept 2011 refer to a different and now deprecated architecture for data collection and transport (i.e., they do NOT use LDMS). Many publications listed here are also available at OSTI.GOV some months after publication.
+
+*ATTN: THIS PAGE IS UNDER CONSTRUCTION IN AUG 2023. IT IS EXPECTED TO BE COMPLETE BY EARLY SEP 2023.*
+
 
 2023
 ^^^^
-| Prodigy: Toward Unsupervised Anomaly Detection in Production HPC Systems
-| Burak Aksar, Efe Sencan, Benjamin Schwaller, Omar Aaziz, Vitus J. Leung, Jim Brandt, Brian Kulis, Manuel Egele, and Ayse K. Coskun 
-| SC `23: Proc of the Int'l Conf. for High Performance Computing, Networking, Storage and Analysis.
-| Nov 2023, to appear.
-
- ::
-| Autonomy Loops for Monitoring, Operational Data Analytics, Feedback, and Response in HPC Operations
-| Francieli Boito, Jim Brandt, Valeria Cardellini, Philip Carns, Florina M. Ciorba, Hilary Egan, Ahmed Eleliemy, Ann Gentile, Thomas Gruber, Jeff Hanson, Utz-Uwe Haus, Kevin Huck, Thomas Ilsche, Thomas Jakobsche, Terry Jones, Sven Karlsson, Abdullah Mueen, Michael Ott, Tapasya Patki, Krishnan Raghavan, Stephen Simms, Kathleen Shoga, Michael Showerman, Devesh Tiwari, Torsten Wilde, Ivy Peng, and Keiji Yamamoto
-| Proc. IEEE Cluster
-| Oct 2023, to appear
-
- ::
 | Towards Practical Machine Learning Frameworks for Performance Diagnostics in Supercomputers
 | B. Aksar, E. Sencan, B. Schwaller, V. Leung, J. Brandt, B. Kulis, M. Egele, and A. Coskun
 | AI4Sys '23: Proceedings of the First Workshop on AI for Systems, August 2023, pp 1–6
 | `doi: 10.1145/3588982.3603609 <https://doi.org/10.1145/3588982.3603609>`_
-
- ::
-| Evaluating and Influencing Extreme-Scale Monitoring Implementations
-| Jim Brandt, Chris Morrone, Eric Roman, Ann Gentile, Tom Tucker, Jeff Hanson, Kathleen Shoga, and Alec Scott
-| Proc Cray User's Group
-| May 2023.
-
- ::
-| Driving HPC Operations With Holistic Monitoring and Operational Data Analytics (Dagstuhl Seminar 23171)
-| Jim Brandt, Florina Ciorba, Ann Gentile, Michael Ott, and Torsten Wilde
-| In Dagstuhl Reports, Volume 13, Issue 4, pp. 98-120, Schloss Dagstuhl - Leibniz-Zentrum für Informatik (2023)
-| `doi: 10.4230/DagRep.13.4.98 <https://drops.dagstuhl.de/entities/document/10.423/DagRep.13.4.98>`_
-
- ::
-| Community Readiness and Opportunities for Progress in HPC Monitoring, Analysis, Feedback, and Response -- *Keynote*
-| J. Brandt
-| `Driving HPC Operations With Holistic Monitoring and Operational Data Analytics (Dagstuhl Seminar 23171) <https://www.dagstuhl.de/seminars/seminar-calendar/seminar-details/23171>`_
-| Apr 2023
 
 
 2022
@@ -77,8 +50,8 @@ Note: Publications prior to Sept 2011 refer to a different and now deprecated ar
 | `doi: 10.1109/CLUSTER51413.2022.00048 <https://doi.org/10.1109/CLUSTER51413.2022.00048>`_
 
  ::
-| Metrics for Packing Efficiency and Fairness of HPC Cluster Batch Job Scheduling 
-| A. Goponenko, K. Lamar, C. Peterson, B. Allan, J. Brandt, and D. Dechev 
+| Metrics for Packing Efficiency and Fairness of HPC Cluster Batch Job Scheduling A. Goponenko, K. Lamar,
+| C. Peterson, B. Allan, J. Brandt, and D. Dechev 
 | 2022 IEEE 34th International Symposium on Computer Architecture and High Performance Computing (SBAC-PAD), Bordeaux, France, 2022, pp. 241-252
 | `doi: 10.1109/SBAC-PAD55451.2022.00035 <https://doi.org/10.1109/SBAC-PAD55451.2022.00035>`_
 

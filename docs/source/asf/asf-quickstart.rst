@@ -74,7 +74,7 @@ First, create the following file in the same directory as your python analysis (
 
 .. note::
 
-  You will need to provide the path to the DSOS container and ``Sos.Session()`` configuration file in order to run this python script. Please see the `Python Analysis Creation <pyanalysis.rst>`_ for more details.
+  You will need to provide the path to the DSOS container and ``Sos.Session()`` configuration file in order to run this python script. Please see the :doc:`pyanalysis.rst` for more details.
 
 * Next, run the python module:
 
@@ -99,25 +99,23 @@ Test Analysis via Grafana Dashboard
 You can optionally test the analysis in a grafana dashboard. This is not preferred because it is a bit more time consuming and, if there is a lot of data to query, there can be some additional wait time in that as well.
 
 Create A New Dashboard
-++++++++++++++++++++++++++
+//////////////////////
 To create a new dashboard, click on the + sign on the left side of the home page and hit dashboard. This will create a blank dashboard with an empty panel in it. Hit the add query button on the panel to begin configuring the query to be sent to an analysis module. 
 
 .. note::
   
-  For more information on how to navigate around the Grafana dashboard and what the variables and advanced settings do, please see `Grafana Panel <grafanapanel>`_ and `Grafana Usage <grafanause>`_.
+  For more information on how to navigate around the Grafana dashboard and what the variables and advanced settings do, please see :doc:`Grafana Panel <grafanapanel>` and :doc:`Grafana Usage <grafanause>`
 
 * Next, add your analysis by filling out the required fields shown below:
 
 .. image:: ../images/grafana/grafana_query.PNG
-
-* These fields are identical to the python script you can generate to test in your terminal window so please refer to :ref:`Test Analysis via Terminal Window` or `Grafana Panel <grafanapanel>`_ for more details.
-
+    :height: 400
+* These fields are identical to the python script you can generate to test in your terminal window so please refer to :ref:`Test Analysis via Terminal Window` or :doc:`Grafana Panel <grafanapanel>` for more details.
 
 * Now change the analysis to query from the last 5 minutes by selecting the down arrow in the top right of the panel and selecting "Last 5 minutes"
 
 .. image:: ../images/grafana/grafana_time.PNG
     :height: 400
-
 
 * Then change the refresh rate to 5 seconds so that Grafana will automatically query the data every 5 seconds
 
