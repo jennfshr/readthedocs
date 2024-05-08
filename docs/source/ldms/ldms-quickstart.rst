@@ -10,7 +10,7 @@ AlmaLinux8
 Prerequisites
 
 ***********************
-* AlmaLinux8 (AlmaLinux is binary compatible with RHEL®
+* AlmaLinux8 (AlmaLinux is binary compatible with RHEL®)
 * openssl-dev
 * gnu compiler
 * swig
